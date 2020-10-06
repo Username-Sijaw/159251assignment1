@@ -38,7 +38,14 @@ public class Editor extends JFrame {
     }
     class NewAction extends AbstractAction		//新建
     {
-
+        public NewAction()
+        {
+            super("New(N)     Ctrl+N");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            textPane.setDocument(new DefaultStyledDocument());
+        }
     }
     class OpenAction extends AbstractAction		//打开
     {
