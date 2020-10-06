@@ -22,12 +22,12 @@ public class Editor extends JFrame {
         menuFile.add(new JMenuItem(actions[0]));
         menuFile.add(new JMenuItem(actions[1]));
         menuFile.add(new JMenuItem(actions[2]));
-        menuFile.add(new JMenuItem(actions[3]));
+        menuFile.add(new JMenuItem(actions[8]));
 
-        menuSearch.add(new JMenuItem(actions[3]));
-        menuSearch.add(new JMenuItem(actions[4]));
+        menuView.add(new JMenuItem(actions[4]));
         menuView.add(new JMenuItem(actions[5]));
-        menuManage.add(new JMenuItem(actions[6]));
+        menuView.add(new JMenuItem(actions[6]));
+
         menuAbout.add(new JMenuItem(actions[7]));
         menubar.add(menuFile);
         menubar.add(menuSearch);
