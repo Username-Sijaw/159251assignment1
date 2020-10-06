@@ -68,12 +68,26 @@ public class Editor extends JFrame {
 
     class PasteAction extends AbstractAction		//粘贴
     {
-
+        public PasteAction()
+        {
+            super("粘贴(P)     Ctrl+V");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            textPane.paste();
+        }
     }
 
     class AboutAction extends AbstractAction
     {
-
+        public AboutAction()
+        {
+            super("About us");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            JOptionPane.showMessageDialog(Editor.this,"Yu Tianchuan and Zheng Yichen"  ,"Managers",JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     public static void main(String[] args)
