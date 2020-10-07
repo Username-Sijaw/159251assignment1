@@ -10,6 +10,27 @@ public class Editor extends JFrame {
     public JFileChooser filechooser = new JFileChooser(); //文件选择器
     public Editor()
     {
+        super("Test Editor");
+        Action[] actions=			//菜单项的各种功能
+                {
+                        new NewAction(),
+                        new OpenAction(),
+                        new SaveAction(),
+                        new ExitAction(),//3
+
+                        new CutAction(),
+                        new CopyAction(),//5
+                        new PasteAction(),
+
+                        new AboutAction(),//7
+                        new ExitAction(),
+                };
+        setJMenuBar(createJMenuBar(actions));		//根据actions创建菜单栏
+        Container container=getContentPane();
+        container.add(textPane, BorderLayout.CENTER);
+        setSize(800, 1000);
+        setVisible(true);
+        //	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     private JMenuBar createJMenuBar(Action[] actions)	//创建菜单栏的函数
     {
