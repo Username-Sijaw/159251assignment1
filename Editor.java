@@ -43,12 +43,12 @@ public class Editor extends JFrame {
         menuFile.add(new JMenuItem(actions[0]));
         menuFile.add(new JMenuItem(actions[1]));
         menuFile.add(new JMenuItem(actions[2]));
-        menuFile.add(new JMenuItem(actions[8]));
+        menuFile.add(new JMenuItem(actions[3]));
 
-        menuView.add(new JMenuItem(actions[4]));
+        menuSearch.add(new JMenuItem(actions[3]));
+        menuSearch.add(new JMenuItem(actions[4]));
         menuView.add(new JMenuItem(actions[5]));
-        menuView.add(new JMenuItem(actions[6]));
-
+        menuManage.add(new JMenuItem(actions[6]));
         menuAbout.add(new JMenuItem(actions[7]));
         menubar.add(menuFile);
         menubar.add(menuSearch);
@@ -129,6 +129,18 @@ public class Editor extends JFrame {
         }
     }
 
+    class CutAction extends AbstractAction		//剪切
+    {
+        public CutAction()
+        {
+            super("剪切(T)     Ctrl+X");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            textPane.cut();
+        }
+    }
+
     class CopyAction extends AbstractAction		//复制
     {
         public CopyAction()
@@ -152,6 +164,31 @@ public class Editor extends JFrame {
             textPane.paste();
         }
     }
+
+
+//    itemFind = new JMenuItem("查找(F)",'F');
+//
+//        itemFind.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
+//
+//    Event.CTRL_MASK));
+//
+//        itemFind.addActionListener(this);
+//
+//        itemEdit.add(itemFind);
+
+//
+//    class FindAction extends AbstractAction
+//    {
+//        FindAction = new JMenuItem("GFADGFAD")
+//    }
+    //        public AboutAction()
+//        {
+//            super("关于简记(A)");
+//        }
+//        public void actionPerformed(ActionEvent e)
+//        {
+//            JOptionPane.showMessageDialog(Editor.this,"实现了记事本的一些基本功能","关于",JOptionPane.PLAIN_MESSAGE);
+//        }
 
     class AboutAction extends AbstractAction
     {
