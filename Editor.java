@@ -98,12 +98,26 @@ public class Editor extends JFrame {
 
     class ExitAction extends AbstractAction		//退出
     {
-
+        public ExitAction()
+        {
+            super("退出(X)");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            dispose();
+        }
     }
 
     class CopyAction extends AbstractAction		//复制
     {
-
+        public CopyAction()
+        {
+            super("复制(C)     Ctrl+C");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            textPane.copy();
+        }
     }
 
     class PasteAction extends AbstractAction		//粘贴
