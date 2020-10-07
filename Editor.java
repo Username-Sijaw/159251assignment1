@@ -49,11 +49,51 @@ public class Editor extends JFrame {
     }
     class OpenAction extends AbstractAction		//打开
     {
-
+        public OpenAction()
+        {
+            super("Open(O)     Ctrl+O");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            int i=filechooser.showOpenDialog(Editor.this);			//显示打开文件对话框
+            if(i==JFileChooser.APPROVE_OPTION)			//点击对话框打开选项
+            {
+                File f=filechooser.getSelectedFile();	//得到选择的文件
+                try
+                {
+                    InputStream is=new FileInputStream(f);
+                    textPane.read(is, "d");
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
     class SaveAction extends AbstractAction		//保存
     {
-
+        public SaveAction()
+        {
+            super("Store(S)     Ctrl+S");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            int i=filechooser.showSaveDialog(Editor.this);
+            if(i==JFileChooser.APPROVE_OPTION)
+            {
+                File f=filechooser.getSelectedFile();
+                try
+                {
+                    FileOutputStream out=new FileOutputStream(f);
+                    out.write(textPane.getText().getBytes());
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
     class ExitAction extends AbstractAction		//退出
