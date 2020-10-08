@@ -1,0 +1,9 @@
+Editor$CutAction.class
+Editor$OpenAction.class
+Editor.class
+Editor$AboutAction.class
+Editor$ExitAction.class
+Editor$PasteAction.class
+Editor$CopyAction.class
+Editor$NewAction.class
+Editor$SaveAction.class
