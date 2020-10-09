@@ -1,8 +1,15 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+import javax.print.*;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.swing.*;
-import javax.swing.text.*;
+import javax.swing.text.DefaultStyledDocument;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 
 public class Editor extends JFrame {
@@ -16,14 +23,16 @@ public class Editor extends JFrame {
                         new NewAction(),
                         new OpenAction(),
                         new SaveAction(),
-                        new ExitAction(),//3
+                        new Print(),//3
+                        new ExitAction(),
 
                         new CutAction(),
-                        new CopyAction(),//5
+                        new CopyAction(),//6
                         new PasteAction(),
 
-                        new AboutAction(),//7
-                        new ExitAction(),
+                        new AboutAction(),//8
+
+                        new Time(),
                 };
         setJMenuBar(createJMenuBar(actions));		//根据actions创建菜单栏
         Container container=getContentPane();
@@ -38,23 +47,28 @@ public class Editor extends JFrame {
         JMenu menuFile=new JMenu("File(F)");
         JMenu menuSearch=new JMenu("Search(S)");
         JMenu menuView=new JMenu("View(V)");
-        JMenu menuManage=new JMenu("Manage(M)");
+        JMenu menuTime=new JMenu("Time(T)");
         JMenu menuAbout=new JMenu("About(A)");
+
         menuFile.add(new JMenuItem(actions[0]));
         menuFile.add(new JMenuItem(actions[1]));
         menuFile.add(new JMenuItem(actions[2]));
         menuFile.add(new JMenuItem(actions[3]));
+        menuFile.add(new JMenuItem(actions[4]));
 
-        menuSearch.add(new JMenuItem(actions[3]));
-        menuSearch.add(new JMenuItem(actions[4]));
         menuView.add(new JMenuItem(actions[5]));
-        menuManage.add(new JMenuItem(actions[6]));
-        menuAbout.add(new JMenuItem(actions[7]));
+        menuView.add(new JMenuItem(actions[6]));
+        menuView.add(new JMenuItem(actions[7]));
+
+        menuAbout.add(new JMenuItem(actions[8]));
+        menuTime.add(new JMenuItem(actions[9]));
+
         menubar.add(menuFile);
         menubar.add(menuSearch);
         menubar.add(menuView);
-        menubar.add(menuManage);
+        menubar.add(menuTime);
         menubar.add(menuAbout);
+
         return menubar;
     }
     class NewAction extends AbstractAction		//新建
@@ -121,7 +135,7 @@ public class Editor extends JFrame {
     {
         public ExitAction()
         {
-            super("退出(X)");
+            super("Exit(X)");
         }
         public void actionPerformed(ActionEvent e)
         {
@@ -133,7 +147,7 @@ public class Editor extends JFrame {
     {
         public CutAction()
         {
-            super("剪切(T)     Ctrl+X");
+            super("Cut(T)     Ctrl+X");
         }
         public void actionPerformed(ActionEvent e)
         {
@@ -145,7 +159,7 @@ public class Editor extends JFrame {
     {
         public CopyAction()
         {
-            super("复制(C)     Ctrl+C");
+            super("Copy(C)     Ctrl+C");
         }
         public void actionPerformed(ActionEvent e)
         {
@@ -157,7 +171,7 @@ public class Editor extends JFrame {
     {
         public PasteAction()
         {
-            super("粘贴(P)     Ctrl+V");
+            super("Paste(P)     Ctrl+V");
         }
         public void actionPerformed(ActionEvent e)
         {
@@ -165,30 +179,6 @@ public class Editor extends JFrame {
         }
     }
 
-
-//    itemFind = new JMenuItem("查找(F)",'F');
-//
-//        itemFind.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
-//
-//    Event.CTRL_MASK));
-//
-//        itemFind.addActionListener(this);
-//
-//        itemEdit.add(itemFind);
-
-//
-//    class FindAction extends AbstractAction
-//    {
-//        FindAction = new JMenuItem("GFADGFAD")
-//    }
-    //        public AboutAction()
-//        {
-//            super("关于简记(A)");
-//        }
-//        public void actionPerformed(ActionEvent e)
-//        {
-//            JOptionPane.showMessageDialog(Editor.this,"实现了记事本的一些基本功能","关于",JOptionPane.PLAIN_MESSAGE);
-//        }
 
     class AboutAction extends AbstractAction
     {
@@ -199,6 +189,52 @@ public class Editor extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             JOptionPane.showMessageDialog(Editor.this,"Yu Tianchuan and Zheng Yichen"  ,"Managers",JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+    class Print extends AbstractAction{
+        public Print()
+        {
+            super("Print(P)     Ctrl+C");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            JFileChooser fileChooser = new JFileChooser(); //创建打印作业
+            int state = fileChooser.showOpenDialog(null);
+            if(state == fileChooser.APPROVE_OPTION){
+                File file = new File("D:/zkyzl.txt"); //获取选择的文件
+                //构建打印请求属性集
+                HashPrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+                //设置打印格式，因为未确定类型，所以选择autosense
+                DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+                //查找所有的可用的打印服务
+                PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+                //定位默认的打印服务
+                PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+                //显示打印对话框
+                PrintService service = ServiceUI.printDialog(null, 200, 200, printService,
+                        defaultService, flavor, pras);
+                if(service != null){
+                    try {
+                        DocPrintJob job = service.createPrintJob(); //创建打印作业
+                        FileInputStream fis = new FileInputStream(file); //构造待打印的文件流
+                        DocAttributeSet das = new HashDocAttributeSet();
+                        Doc doc = new SimpleDoc(fis, flavor, das);
+                        job.print(doc, pras);
+                    } catch (Exception event) {
+                        event.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    class Time extends AbstractAction{
+        public Time(){
+            super("Time");
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+
         }
     }
 
