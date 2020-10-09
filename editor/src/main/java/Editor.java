@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Calendar;
 
 
 public class Editor extends JFrame {
@@ -46,7 +47,7 @@ public class Editor extends JFrame {
         JMenuBar menubar=new JMenuBar();
         JMenu menuFile=new JMenu("File(F)");
         JMenu menuSearch=new JMenu("Search(S)");
-        JMenu menuView=new JMenu("View(V)");
+        JMenu menuView=new JMenu("Tool(T)");
         JMenu menuTime=new JMenu("Time(T)");
         JMenu menuAbout=new JMenu("About(A)");
 
@@ -234,7 +235,21 @@ public class Editor extends JFrame {
         }
         public void actionPerformed(ActionEvent e)
         {
+            Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 
+            int year = c.get(Calendar.YEAR);
+
+            int month = c.get(Calendar.MONTH);
+
+            int date = c.get(Calendar.DATE);
+
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+
+            int minute = c.get(Calendar.MINUTE);
+
+            int second = c.get(Calendar.SECOND);
+
+            JOptionPane.showMessageDialog(Editor.this,year + "/" + month + "/" + date + " " +hour + ":" +minute + ":" + second);
         }
     }
 
