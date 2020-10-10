@@ -18,7 +18,7 @@ public class Editor extends JFrame {
     public JFileChooser filechooser = new JFileChooser(); //文件选择器
     public Editor()
     {
-        super("Test Editor");
+        super("Text Editor");
         Action[] actions=			//菜单项的各种功能
                 {
                         new NewAction(),
@@ -48,7 +48,7 @@ public class Editor extends JFrame {
         JMenu menuFile=new JMenu("File(F)");
         JMenu menuSearch=new JMenu("Search(S)");
         JMenu menuView=new JMenu("Tool(T)");
-        JMenu menuTime=new JMenu("Time(T)");
+        JMenu menuTime=new JMenu("T&D(T)");
         JMenu menuAbout=new JMenu("About(A)");
 
         menuFile.add(new JMenuItem(actions[0]));
@@ -189,7 +189,7 @@ public class Editor extends JFrame {
         }
         public void actionPerformed(ActionEvent e)
         {
-            JOptionPane.showMessageDialog(Editor.this,"Yu Tianchuan and Zheng Yichen"  ,"Managers",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(Editor.this,"Yu Tianchuan and Zheng Yichen"  ,"About us",JOptionPane.PLAIN_MESSAGE);
         }
     }
     class Print extends AbstractAction{
@@ -202,7 +202,7 @@ public class Editor extends JFrame {
             JFileChooser fileChooser = new JFileChooser(); //创建打印作业
             int state = fileChooser.showOpenDialog(null);
             if(state == fileChooser.APPROVE_OPTION){
-                File file = new File("D:/zkyzl.txt"); //获取选择的文件
+                File file = new File("D:/assignment.txt"); //获取选择的文件
                 //构建打印请求属性集
                 HashPrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
                 //设置打印格式，因为未确定类型，所以选择autosense
@@ -231,7 +231,7 @@ public class Editor extends JFrame {
 
     class Time extends AbstractAction{
         public Time(){
-            super("Time");
+            super("Time and Date");
         }
         public void actionPerformed(ActionEvent e)
         {
